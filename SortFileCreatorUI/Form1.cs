@@ -32,32 +32,32 @@ namespace SortFileCreatorUI
 
     public class EditionData
     {
-        private Dictionary<string, Edition> editionsCodeDictionary = new Dictionary<string, Edition>();
-        private Dictionary<string, Edition> editionsNameDictionary = new Dictionary<string, Edition>();
+        private Dictionary<string, Edition> editionsCodeDict = new Dictionary<string, Edition>();
+        private Dictionary<string, Edition> editionsNameDict = new Dictionary<string, Edition>();
 
         public void AddEdition(Edition inEdition)
         {
-            editionsCodeDictionary.Add(inEdition.Code, inEdition);
-            editionsNameDictionary.Add(inEdition.Name, inEdition);
+            editionsCodeDict.Add(inEdition.Code, inEdition);
+            editionsNameDict.Add(inEdition.Name, inEdition);
         }
         public Edition ByCode(string requestedCode)
         {
 
-            return editionsCodeDictionary[requestedCode];
+            return editionsCodeDict[requestedCode];
         }
 
         public Edition ByName(string requestedName)
         {
 
-            return editionsNameDictionary[requestedName];
+            return editionsNameDict[requestedName];
         }
 
         public List<Edition> ByIsFrontier(bool requestedIsFrontier)
         {
             List<Edition> output = new List<Edition>();
-            foreach (Edition edition in editionsNameDictionary.Values)
+            foreach (Edition edition in editionsNameDict.Values)
             {
-                if(edition.IsFrontier = requestedIsFrontier)
+                if(edition.IsFrontier == requestedIsFrontier)
                 {
                     output.Add(edition);
                 }
@@ -77,5 +77,71 @@ namespace SortFileCreatorUI
         public Rarity Rarity { get; set; }
         public bool IsPriority { get; set; }
 
+    }
+
+    public class CardData
+    {
+        private Dictionary<int, Card> cardIDDict { get; set; }
+               
+
+        public void AddCard(Card inputCard)
+        {
+            cardIDDict.Add(inputCard.DatabaseID, inputCard);
+                     
+           
+        }
+
+        public Card ByDatabaseID(int requestedID)
+        {
+            return cardIDDict[requestedID];
+        }
+        
+        public CardData ByEditions(Edition[] requestedEditions)
+        {
+            CardData output = new CardData();
+            
+            foreach(Card c in cardIDDict.Values)
+            {
+                foreach(Edition e in requestedEditions)
+                {
+                    if(c.Edition == e)
+                    {
+                        output.AddCard(c);
+                    }
+                }
+            }
+            return output;
+        }
+
+        public CardData ByRarities(Rarity[] requestedRarities)
+        {
+            CardData output = new CardData();
+
+            foreach(Card c in cardIDDict.Values)
+            {
+                foreach (Rarity r in requestedRarities)
+                {
+                    if(c.Rarity == r)
+                    {
+                        output.AddCard(c);
+                    }
+                }
+            }
+            return output;
+        } 
+
+        public CardData ByPriority(bool requestedPriority)
+        {
+            CardData output = new CardData();
+            foreach(Card c in cardIDDict.Values)
+            {
+                if(c.IsPriority == requestedPriority)
+                {
+                    output.AddCard(c);
+
+                }
+            }
+            return output;
+        }
     }
 }
