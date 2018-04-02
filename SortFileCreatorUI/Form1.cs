@@ -70,6 +70,7 @@ namespace SortFileCreatorUI
   
     public class Card
     {
+        public int DatabaseID { get; set; }
         public string Title { get; set; }
         public Edition Edition { get; set; }
         public int CollectorNumber { get; set; }
