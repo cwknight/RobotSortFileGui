@@ -23,15 +23,11 @@ namespace SortFileCreatorUI
         }
     }
 
-   public class Edition
+    public class Edition
     {
-        private string name;
-        private string code;
-        private bool isFrontier;
-
-        public string Name { get => name; set => name = value; }
-        public string Code { get => code; set => code = value; }
-        public bool IsFrontier { get => isFrontier; set => isFrontier = value; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public bool IsFrontier { get; set; }
     }
 
     public class EditionData
@@ -70,5 +66,15 @@ namespace SortFileCreatorUI
         }
     }
 
-    
+    public enum Rarity { L, C, U, R, M, P, S}
+  
+    public class Card
+    {
+        public string Title { get; set; }
+        public Edition Edition { get; set; }
+        public int CollectorNumber { get; set; }
+        public Rarity Rarity { get; set; }
+        public bool IsPriority { get; set; }
+
+    }
 }
